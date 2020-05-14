@@ -3,6 +3,7 @@ import confLogo from "../images/badge-header.svg";
 import "./styles/Badge.css";
 export default class Badge extends React.Component {
   render() {
+    const {name,lastName,jobTitle,twitter} = this.props
     return (
       <div className="Badge">
         <div className="Badge__header">
@@ -15,13 +16,13 @@ export default class Badge extends React.Component {
             alt="Avatar"
           />
           <h1>
-            Brayan <br />
-            Llanos
+            {name} <br />
+            {lastName}
           </h1>
         </div>
         <div className="Badge__section-info">
-          <h3>Fronted Developer</h3>
-          <div>@brayan0428</div>
+    <h3>{jobTitle}</h3>
+    <div>{twitter}</div>
         </div>
         <div className="Badge__footer">#Conferencia</div>
       </div>
