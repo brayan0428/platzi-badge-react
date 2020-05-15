@@ -3,8 +3,23 @@ import Navbar from '../components/Navbar'
 import header from "../images/badge-header.svg"
 import Badge from "../components/Badge";
 import './styles/BadgeNew.css'
+import BadgeForm from '../components/BadgeForm';
 
 class BadgeNew extends Component{
+    state = {form: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        jobTitle: '',
+        twitter: ''
+    }}
+
+    handleChange = (e) => {
+        this.setState({
+            form: {...this.state.form, [e.target.name]: e.target.value}
+        })
+    }
+
     render(){
         return(
             <div>
@@ -14,8 +29,11 @@ class BadgeNew extends Component{
                 </div>
                 <div className="container">
                     <div className="row">
-                    <div className="col">
-                        <Badge name="Brayan" lastName="Llanos" jobTitle="Frontend Developer" twitter="@brayan0428" />
+                    <div className="col-6">
+                        <Badge name={this.state.form.firstName} lastName={this.state.form.lastName} jobTitle={this.state.form.jobTitle} twitter={this.state.form.twitter} email={this.state.form.email} />
+                    </div>
+                    <div className="col-6">
+                        <BadgeForm onChange={this.handleChange} form={this.state.form}/>
                     </div>
                     </div>
                 </div>

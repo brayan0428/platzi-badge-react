@@ -1,0 +1,23 @@
+.Badge__container{
+  display:flex;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: -12px 11px 26px -14px rgba(0,0,0,0.75);
+}
+
+.Badge__container img{
+  border-radius: 50%;
+}
+
+.Badge-info{
+  margin-left: 10px;
+}
+
+.Badge-name{
+  font-weight: bold;
+}
+
+.Badge-twitter{
+  color:rgba(29,161,242,1.00);
+}
