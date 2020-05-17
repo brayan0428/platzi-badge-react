@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter,Route, Switch } from 'react-router-dom'
 import Badges from './pages/Badges'
 import BadgesNew from './pages/BadgeNew'
-import Layout from './components/styles/Layout'
+import Layout from './components/Layout'
 import NotFound from './pages/NotFound'
 
 function App(){
