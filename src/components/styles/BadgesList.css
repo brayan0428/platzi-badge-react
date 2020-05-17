@@ -1,6 +1,6 @@
 .Badge__container{
   display:flex;
-  margin: 20px;
+  margin: 20px 0;
   padding: 20px;
   border-radius: 10px;
   box-shadow: -12px 11px 26px -14px rgba(0,0,0,0.75);
