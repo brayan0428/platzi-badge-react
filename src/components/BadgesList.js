@@ -1,12 +1,14 @@
 import React from 'react'
 import  './styles/BadgesList.css'
+import { Link } from 'react-router-dom'
 class BadgesList extends React.Component{
   render(){
     return(
       <div>
         {
           this.props.badges.map(badge => (
-            <div className="Badge__container" key={badge.id}>
+            <Link className="text-decoration-none text-reset" to={`badges/edit/${badge.id}`} key={badge.id}>
+            <div className="Badge__container">
               <img src={badge.avatarUrl} alt="Avatar"/>
               <div className="Badge-info">
                 <h5 className="Badge-name">{badge.firstName} {badge.lastName}</h5>
@@ -14,6 +16,7 @@ class BadgesList extends React.Component{
                 <h6>{badge.jobTitle}</h6>
               </div>
             </div>
+            </Link>
           ))
         }
       </div>

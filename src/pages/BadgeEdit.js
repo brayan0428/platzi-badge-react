@@ -1,22 +1,37 @@
 import React, { Component } from 'react'
 import header from "../images/badge-header.svg"
 import Badge from "../components/Badge";
-import './styles/BadgeNew.css'
+import './styles/BadgeEdit.css'
 import BadgeForm from '../components/BadgeForm';
 import md5 from 'md5';
 import api from '../api'
 import PageLoading from '../components/PageLoading'
 
-class BadgeNew extends Component {
+class BadgeEdit extends Component {
     state = {
         error: null,
-        loading: false,
+        loading: true,
         form: {
             firstName: '',
             lastName: '',
             email: '',
             jobTitle: '',
             twitter: ''
+        }
+    }
+
+    componentDidMount(){
+        this.fetchData()
+    }
+
+    async fetchData(){
+        const badgeId = this.props.match.params.badgeId
+        this.setState({loading:true, error:null})
+        try {
+            const data = await api.badges.read(badgeId)
+            this.setState({loading:false, form: data})
+        } catch (error) {
+            this.setState({loading:false, error:error.message})
         }
     }
 
@@ -35,7 +50,8 @@ class BadgeNew extends Component {
         const hash = md5(this.state.form.email)
         const data = { ...this.state.form, avatarUrl: `https://www.gravatar.com/avatar/${hash}d=identicon` }
         try {
-            await api.badges.create(data)
+            const badgeId = this.props.match.params.badgeId
+            await api.badges.update(badgeId,data)
             this.setState({ loading: false })
             this.props.history.push('/badges')
         } catch (e) {
@@ -52,7 +68,7 @@ class BadgeNew extends Component {
         }
         return (
             <div>
-                <div className="BadgeNew__hero">
+                <div className="BadgeEdit__hero">
                     <img className="img-fluid" src={header} alt="Logo" />
                 </div>
                 <div className="container">
@@ -61,7 +77,7 @@ class BadgeNew extends Component {
                             <Badge name={this.state.form.firstName} lastName={this.state.form.lastName} jobTitle={this.state.form.jobTitle} twitter={this.state.form.twitter} email={this.state.form.email} />
                         </div>
                         <div className="col-6">
-                        <h1>Formulario de registro</h1>
+                            <h1>Editar Badge</h1>
                             <BadgeForm onSubmit={this.handleSubmit} onChange={this.handleChange} form={this.state.form} error={this.state.error}/>
                         </div>
                     </div>
@@ -71,4 +87,4 @@ class BadgeNew extends Component {
     }
 }
 
-export default BadgeNew
+export default BadgeEdit
