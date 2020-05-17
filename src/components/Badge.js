@@ -1,18 +1,19 @@
 import React from "react";
 import confLogo from "../images/badge-header.svg";
 import "./styles/Badge.css";
+import Gravatar from "./Gravatar";
 export default class Badge extends React.Component {
   render() {
-    const {name,lastName,jobTitle,twitter} = this.props
+    const {name,lastName,jobTitle,twitter,email} = this.props
     return (
       <div className="Badge">
         <div className="Badge__header">
           <img src={confLogo} alt="Logo" />
         </div>
         <div className="Badge__section-name">
-          <img
+          <Gravatar
             className="Badge__avatar"
-            src="https://www.gravatar.com/avatar?d=identicon"
+            email={email}
             alt="Avatar"
           />
           <h1>

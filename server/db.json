@@ -53,6 +53,24 @@
       "jobTitle": "Lead Marketing Director",
       "twitter": "BreannaRunolfsdottir70705-1477",
       "avatarUrl": "https://www.gravatar.com/avatar/684697e194c66d338c5ee91d030121cc?d=identicon"
+    },
+    {
+      "firstName": "Brayan",
+      "lastName": "Llanos",
+      "email": "brayan0428@gmail.com",
+      "jobTitle": "Desarrollador",
+      "twitter": "brayan0428",
+      "avatarUrl": "https://www.gravatar.com/avatar/ae30ee3aa751584ded99c2464e357651d=identicon",
+      "id": "xlcRe5I"
+    },
+    {
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "email": "juan@gmail.com",
+      "jobTitle": "Programador",
+      "twitter": "juan1206",
+      "avatarUrl": "https://www.gravatar.com/avatar/7038663cc684aa330956752c7e6fe7d4d=identicon",
+      "id": "RVQveQY"
     }
   ]
 }

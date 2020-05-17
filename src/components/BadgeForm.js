@@ -1,16 +1,11 @@
 import React from 'react'
 
 class BadgeForm extends React.Component {
-
-    handleSubmit = e => {
-        e.preventDefault()
-        console.log(this.state)
-    }
     render() {
         return (
             <div>
                 <h1>Formulario de registro</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.props.onSubmit}>
                     <div className="form-group">
                         <label>Primer Nombre</label>
                         <input type="text" className="form-control" name="firstName" onChange={this.props.onChange} value={this.props.form.firstName}/>
@@ -32,6 +27,9 @@ class BadgeForm extends React.Component {
                         <input type="text" className="form-control" name="twitter" onChange={this.props.onChange} value={this.props.form.twitter}/>
                     </div>
                     <button className="btn btn-primary">Guardar</button>
+                    {this.props.error && (
+                        <p className="text-danger mt-2">{this.props.error}</p>
+                    )}
                 </form>
             </div>
         )
