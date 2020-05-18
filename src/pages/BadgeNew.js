@@ -4,10 +4,15 @@ import Badge from "../components/Badge";
 import './styles/BadgeNew.css'
 import BadgeForm from '../components/BadgeForm';
 import md5 from 'md5';
-import api from '../api'
 import PageLoading from '../components/PageLoading'
+import firebase from '../config'
 
 class BadgeNew extends Component {
+    constructor(props){
+        super(props)
+        this.db = firebase.firestore()
+    }
+
     state = {
         error: null,
         loading: false,
@@ -35,7 +40,7 @@ class BadgeNew extends Component {
         const hash = md5(this.state.form.email)
         const data = { ...this.state.form, avatarUrl: `https://www.gravatar.com/avatar/${hash}d=identicon` }
         try {
-            await api.badges.create(data)
+            await this.db.collection('badges').add(data)
             this.setState({ loading: false })
             this.props.history.push('/badges')
         } catch (e) {

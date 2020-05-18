@@ -4,10 +4,16 @@ import Badge from "../components/Badge";
 import './styles/BadgeEdit.css'
 import BadgeForm from '../components/BadgeForm';
 import md5 from 'md5';
-import api from '../api'
 import PageLoading from '../components/PageLoading'
+import firebase from '../config'
 
 class BadgeEdit extends Component {
+
+    constructor(props){
+        super(props)
+        this.db = firebase.firestore()
+    }
+
     state = {
         error: null,
         loading: true,
@@ -28,8 +34,8 @@ class BadgeEdit extends Component {
         const badgeId = this.props.match.params.badgeId
         this.setState({loading:true, error:null})
         try {
-            const data = await api.badges.read(badgeId)
-            this.setState({loading:false, form: data})
+            const data = await this.db.collection("badges").doc(badgeId).get()
+            this.setState({loading:false, form: data.data()})
         } catch (error) {
             this.setState({loading:false, error:error.message})
         }
@@ -51,7 +57,8 @@ class BadgeEdit extends Component {
         const data = { ...this.state.form, avatarUrl: `https://www.gravatar.com/avatar/${hash}d=identicon` }
         try {
             const badgeId = this.props.match.params.badgeId
-            await api.badges.update(badgeId,data)
+            let ref = this.db.collection('badges').doc(badgeId)
+            ref.update(data)
             this.setState({ loading: false })
             this.props.history.push('/badges')
         } catch (e) {

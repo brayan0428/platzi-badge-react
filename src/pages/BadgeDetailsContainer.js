@@ -1,10 +1,15 @@
 import React from 'react'
-import api from  '../api'
 import PageLoading from '../components/PageLoading'
 import PageError from '../components/PageError'
 import BadgeDetails from './BadgeDetails'
+import firebase from '../config'
 
 class BadgeDetailsContainer extends React.Component{
+  constructor(props){
+    super(props)
+    this.db = firebase.firestore()
+  }
+
   state = {
     loading:true,
     error: null,
@@ -27,8 +32,7 @@ class BadgeDetailsContainer extends React.Component{
   handleDeleteBadge = async e => {
     this.setState({loading:true,error:null})
     try {
-      await api.badges.remove(this.props.match.params.badgeId)
-      this.setState({loading:false})
+      this.db.collection("badges").doc(this.props.match.params.badgeId).delete()
       this.props.history.push('/')
     } catch (error) {
       this.setState({loading:false,error:error.message})
@@ -38,9 +42,12 @@ class BadgeDetailsContainer extends React.Component{
   async fetchData(){
     this.setState({loading:true,error:null})
     try {
-      const data = await api.badges.read(this.props.match.params.badgeId)
+      const badgeId = this.props.match.params.badgeId
+      const reponse = await this.db.collection("badges").doc(badgeId).get()
+      const data = {...reponse.data()}
+      data.id = badgeId
       this.setState({
-        data,
+        data: data,
         loading:false
       })
     } catch (error) {

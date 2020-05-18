@@ -3,11 +3,16 @@ import './styles/Badges.css'
 import confLogo from '../images/badge-header.svg';
 import BadgesList from '../components/BadgesList';
 import { Link } from 'react-router-dom';
-import api from '../api';
 import PageLoading from '../components/PageLoading';
 import PageError from '../components/PageError';
+import firebase from '../config'
 
 class Badges extends React.Component{
+  constructor(props){
+    super(props)
+    this.db = firebase.firestore()
+  }
+
    state = {
     loading: true,
     data: [],
@@ -16,11 +21,18 @@ class Badges extends React.Component{
 
   async componentDidMount(){
     try{
-      const data = await api.badges.list()
-      this.setState({
-        loading: false,
-        data
-      })
+      const data = []
+       await this.db.collection('badges').onSnapshot(result => {
+         result.forEach(badge => {
+           let item = {...badge.data()}
+           item.id = badge.id
+           data.push(item)
+         })
+         this.setState({
+          loading: false,
+          data
+        })
+       })
     }catch(e){
       this.setState({
         loading:false,
